@@ -1,0 +1,13 @@
+"toothtpye","comparison","raw_pvalue","adjusted_pvalue"
+"LM1","darti_arundinum",0.023,0.0345
+"LM1","darti_fulvorufula",0,0
+"LM2","darti_arundinum",0.7566,0.7566
+"LM2","darti_fulvorufula",0.0023,0.0046
+"LM3","darti_arundinum",0.0458,0.05496
+"LM3","darti_fulvorufula",0.1272,0.138763636363636
+"UM1","darti_arundinum",0.0068,0.0116571428571429
+"UM1","darti_fulvorufula",0,0
+"UM2","darti_arundinum",0,0
+"UM2","darti_fulvorufula",0,0
+"UM3","darti_arundinum",0.0358,0.0477333333333333
+"UM3","darti_fulvorufula",3e-04,0.00072

@@ -1,0 +1,107 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=mex 2021.11.9)  24 FEB 2025 11:28
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**DynamicProgrammingQ.c
+(./DynamicProgrammingQ.c
+This is MeX  Version 1.05  18 XII 1993  (B. Jackowski & M. Ry\'cko)
+! You can't use `macro parameter character #' in vertical mode.
+l.1 #
+     include <math.h>
+? 
+! You can't use `macro parameter character #' in horizontal mode.
+l.2 #
+     include <stdlib.h>
+? 
+! You can't use `macro parameter character #' in horizontal mode.
+l.3 #
+     include "mex.h"
+? 
+! You can't use `macro parameter character #' in vertical mode.
+l.5 #
+     define NNBRS	23
+? 
+
+Overfull \hbox (19.7739pt too wide) in paragraph at lines 44--46
+[]\tenrm if (nrhs != 4) me-xEr-rMsg-Txt("usage: [gam] = Dy-na-mic-Pro-gram-ming
+Q(q1,q2,(defunct)lam,(defunct)Disp)"); |
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm i
+.\tenrm f
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.\tenrm (
+.etc.
+
+
+Overfull \hbox (10.63489pt too wide) in paragraph at lines 47--49
+[]\tenrm if (!mxIs-Do-uble(prhs[0]) || !mxIs-Do-uble(prhs[1]) || !mxIs-Do-uble(
+prhs[2])) me-xEr-rMsg-Txt("Expected|
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm i
+.\tenrm f
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.\tenrm (
+.etc.
+
+! Misplaced alignment tab character &.
+l.86 			lookupspline(&
+                      t, &k, (j+1.0)/M - a, b - a, N);
+? 
+! Misplaced alignment tab character &.
+l.86 			lookupspline(&t, &
+                          k, (j+1.0)/M - a, b - a, N);
+? 
+! Misplaced alignment tab character &.
+l.116 				if (k >= 0 &
+                      & l >= 0) {
+? 
+! Misplaced alignment tab character &.
+l.116 				if (k >= 0 &&
+                        l >= 0) {
+? 
+[1]
+! Misplaced alignment tab character &.
+l.200 		fp = modf(y*M/N, &
+                          ip);
+? 
+
+Overfull \hbox (0.99599pt too wide) in paragraph at lines 273--276
+[]\tenrm void lo-okup-spline(double *t, int *k, do-uble dist, do-uble len, int 
+n)  *t = (n-1)*dist/len; *k = (int)floor(*t); |
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm v
+.\kern-0.27779
+.\tenrm o
+.\tenrm i
+.etc.
+
+)
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*\end
+[2]
+Output written on DynamicProgrammingQ.dvi (2 pages, 6424 bytes).

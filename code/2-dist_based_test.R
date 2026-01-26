@@ -108,10 +108,13 @@ p.adjust(unlist(pvals),"fdr")
 #FDR correction?  
 
 
-data.frame(toothtpye = rep(c("LM1","LM2","LM3","UM1","UM2","UM3"),each = 2),
+
+out <- data.frame(toothtpye = rep(c("LM1","LM2","LM3","UM1","UM2","UM3"),each = 2),
            comparison = rep(c("darti_arundinum","darti_fulvorufula"),6),
             raw_pvalue = unlist(pvals),
            adjusted_pvalue = p.adjust(unlist(pvals),"fdr"))
+write.csv(out, file = "./results/pvalues_shape_only.csv", row.names = FALSE)
+
 # hist(Sperm)
 # abline(v = S, col = "red")
 

@@ -5,6 +5,14 @@ library(dplyr)
 library(Momocs)
 library(fdasrvf)
 
+#These are photos that are the wrong size 
+remove <- c(
+  "DSCN6419", "DSCN0727", "DSCN0743", "DSCN0788", "DSCN0791",
+  "DSCN0971", "DSCN0976", "DSCN0981", "DSCN0987", "DSCN0991",
+  "DSCN0600", "DSCN0602", "DSCN0603", "DSCN0605", "DSCN0607",
+  "DSCN0717", "DSCN6337"
+)
+
 data <- list()
 for (i in c("LM1","LM2","LM3","UM1","UM2","UM3")){
   data[[i]] <- list()
@@ -24,6 +32,17 @@ for (i in c("LM1","LM2","LM3","UM1","UM2","UM3")){
   end <- Sys.time()
   end - start
   
+  for (q in 1:length(teeth_BW_train_darti_fossil)){
+    area <- polyarea(teeth_BW_train_darti_fossil[[q]][,1],teeth_BW_train_darti_fossil[[q]][,2])
+    if (area < 0){ nnn <- nrow(teeth_BW_train_darti_fossil[[q]]) 
+      teeth_BW_train_darti_fossil[[q]][,1] <- teeth_BW_train_darti_fossil[[q]][nnn:1,1]
+      teeth_BW_train_darti_fossil[[q]][,2] <- teeth_BW_train_darti_fossil[[q]][nnn:1,2]}
+  }
+  
+  for (q in names(teeth_BW_train_darti_fossil)){
+  if (q %in% remove){teeth_BW_train_darti_fossil[[q]] <- NULL}
+  }
+  
   data[[i]][["darti"]] <- teeth_BW_train_darti_fossil
   
 ###########
@@ -40,6 +59,18 @@ for (i in c("LM1","LM2","LM3","UM1","UM2","UM3")){
   names(teeth_BW_train_arundinum_extant) <- substring(names(teeth_BW_train_arundinum_extant),1,nchar(names(teeth_BW_train_arundinum_extant))-4)
   end <- Sys.time()
   end - start
+  
+  #check that they are all going int he same direction
+  for (q in 1:length(teeth_BW_train_arundinum_extant)){
+    area <- polyarea(teeth_BW_train_arundinum_extant[[q]][,1],teeth_BW_train_arundinum_extant[[q]][,2])
+    if (area < 0){ nnn <- nrow(teeth_BW_train_arundinum_extant[[q]]) 
+    teeth_BW_train_arundinum_extant[[q]][,1] <- teeth_BW_train_arundinum_extant[[q]][nnn:1,1]
+    teeth_BW_train_arundinum_extant[[q]][,2] <- teeth_BW_train_arundinum_extant[[q]][nnn:1,2]}
+  }
+  
+  for (q in names(teeth_BW_train_arundinum_extant)){
+    if (q %in% remove){teeth_BW_train_arundinum_extant[[q]] <- NULL}
+  }
   
   data[[i]][["arundinum"]] <- teeth_BW_train_arundinum_extant
   
@@ -58,11 +89,24 @@ for (i in c("LM1","LM2","LM3","UM1","UM2","UM3")){
   end <- Sys.time()
   end - start
   
+  #check that they are all going int he same direction
+  for (q in 1:length(teeth_BW_train_fulvorufula_extant)){
+    area <- polyarea(teeth_BW_train_fulvorufula_extant[[q]][,1],teeth_BW_train_fulvorufula_extant[[q]][,2])
+    if (area < 0){ nnn <- nrow(teeth_BW_train_fulvorufula_extant[[q]]) 
+    teeth_BW_train_fulvorufula_extant[[q]][,1] <- teeth_BW_train_fulvorufula_extant[[q]][nnn:1,1]
+    teeth_BW_train_fulvorufula_extant[[q]][,2] <- teeth_BW_train_fulvorufula_extant[[q]][nnn:1,2]}
+  }
+  
+  #Remove bad teeth
+  for (q in names(teeth_BW_train_fulvorufula_extant)){
+    if (q %in% remove){teeth_BW_train_fulvorufula_extant[[q]] <- NULL}
+  }
+  
   data[[i]][["fulvorufula"]] <- teeth_BW_train_fulvorufula_extant
   
 }
   
-  
+
 
 
 #Manual fixes:
@@ -89,7 +133,7 @@ for (i in c("LM1","LM2","LM3","UM1","UM2","UM3")){
 # data[["LM3"]][["darti"]][["DSCN0986"]] <- data[["LM3"]][["darti"]][["DSCN0986"]][nrow(data[["LM3"]][["darti"]][["DSCN0986"]]):1,]
 # data[["UM2"]][["fulvorufula"]][["DSCN6138"]] <- data[["UM2"]][["fulvorufula"]][["DSCN6138"]][nrow(data[["UM2"]][["fulvorufula"]][["DSCN6138"]]):1,]
 #Save the list
-save(data, file = "./data/teethdata_arundinum_darti_fulvorufula.RData")
+#save(data, file = "./data/teethdata_arundinum_darti_fulvorufula.RData")
 
 
 #Now do data prep for matlab
@@ -127,10 +171,11 @@ for (i in c("LM1", "LM2", "LM3", "UM1", "UM2", "UM3")) {print(i)
   write.csv(data_for_matlab[[i]][["fulvorufula"]],file = paste0("./data/matlab/data_",i,"_fulvorufula.csv"), row.names = FALSE)
 }
 
-save(data, file = "./data/teethdata_darti_arundinum_fulvorfula.RData")
-load("./data/teethdata_darti_arundinum_fulvorfula.RData")
+save(data, file = "./data/teethdata_arundinum_darti_fulvorufula.RData")
+load("./data/teethdata_arundinum_darti_fulvorufula.RData")
+#Run this script first in matlab: pairwise_dist_darti_arundinum_fulvorufula.m
+
 for (toothtype in c("LM1","LM2","LM3","UM1","UM2","UM3")){print(toothtype)
-  
   
   labels <- data.frame(ID = c(names(data[[toothtype]][["darti"]]),
                     names(data[[toothtype]][["arundinum"]]),
@@ -139,7 +184,7 @@ for (toothtype in c("LM1","LM2","LM3","UM1","UM2","UM3")){print(toothtype)
                          rep("arundinum",length(data[[toothtype]][["arundinum"]])),
                          rep("fulvorufula",length(data[[toothtype]][["fulvorufula"]]))))
                     
-  #Run this script first in matlab: pairwise_dist_scriptus_pricei.m
+  
   #Pariwise distances
   #First rows are scriptus and last rows are pricei
   ddd <- read.csv(paste0("./data/matlab/pairwise_distances_",toothtype,".csv"), header = FALSE)

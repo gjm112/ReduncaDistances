@@ -1,5 +1,6 @@
-load("./data/teethdata_scriptus_pricei.RData")
+load("./data/teethdata_arundinum_darti_fulvorufula.RData")
 library(pracma)
+library(tidyverse)
 #All the teeth SHOULD go clockwise.  But two teeth are going counter clockwise!x
 
 #1 IMG_1375       LM1 scriptus  1191.361  -51754.13
@@ -18,33 +19,34 @@ library(pracma)
 #Perimeter and area
 dat <- data.frame()
 for (t in c("LM1", "LM2", "LM3", "UM1", "UM2", "UM3")) {print(t)
-  for (s in c("scriptus", "pricei")) {print(s)
+  for (s in c("arundinum","darti")) {print(s)
     for (j in 1:length(data[[t]][[s]])) {
-      pieces <- c()
-      for (i in 1:499) {
-        pieces[i] <-
-          sqrt(sum((t(data[[t]][[s]][[j]])[, i] - t(data[[t]][[s]][[j]])[, i + 1]) ^ 2))
-      }
+      # pieces <- c()
+      # for (i in 1:499) {
+      #   pieces[i] <- sqrt(sum((t(data[[t]][[s]][[j]])[, i] - t(data[[t]][[s]][[j]])[, i + 1]) ^ 2))
+      # }
       
-      area <- polyarea(t(data[[t]][[s]][[j]])[2,],t(data[[t]][[s]][[j]])[1,])
+      area <- polyarea(t(data[[t]][[s]][[j]])[,1],t(data[[t]][[s]][[j]])[,2])
       
       dat <- rbind(dat,
                    data.frame(
                      name = names(data[[t]][[s]])[j],
                      toothtype = t,
                      species = s,
-                     perimeter = sum(pieces)
-                    , area = area
+                     #perimeter = sum(pieces)
+                    area = area
                    ))
                    
     }
   }
 }
+#remove these
+#dat %>% filter(area > 200000 | area < 1000) %>% pull(name)
 
 library(scales)
 hue_pal()(2)
 png("./area-boxplot.png", res = 300, units = "in", h = 3, w = 5)
-ggplot(aes(x = toothtype, y = area, col= species), data = dat) + geom_boxplot() + theme_bw() + labs(y = expression ("Area"~(mm^2)), x = "Tooth Type") + scale_color_manual(labels = c("T. pricei","T. scriptus"), values = hue_pal()(2))
+ggplot(aes(x = toothtype, y = area, col= species), data = dat) + geom_boxplot() + theme_bw() + labs(y = expression ("Area"~(mm^2)), x = "Tooth Type") + scale_color_manual(labels = c("T. arundinum","T. darti"), values = hue_pal()(2))
 dev.off()
 
 library(xtable)
